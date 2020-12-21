@@ -50,12 +50,14 @@ file_path = 'https://automlsamplenotebookdata.blob.core.windows.net/automl-sampl
 
 ds = TabularDatasetFactory.from_delimited_files(path=file_path)
 
-# x, y = clean_data(ds)
+x, y = clean_data(ds)
 
 # TODO: Split data into train and test sets.
 
-### YOUR CODE HERE ###a
 x_train, x_test, y_train, y_test = train_test_split(x, y)
+
+### YOUR CODE HERE ###a
+
 
 run = Run.get_context() 
 
