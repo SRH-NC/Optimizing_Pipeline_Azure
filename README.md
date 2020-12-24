@@ -63,7 +63,7 @@ Future models can be improved adding / tuning hyperparameters. For example expan
 
 
 ## Proof of cluster clean up
-**If you did not delete your compute cluster in the code, please complete this section. Otherwise, delete this section.**
-**Image of cluster marked for deletion**
 
-Due to the time it took to spin up enivronments using the lab provided environment, I created my own instance under my Azure account. I did delete
+Due to the time it took to spin up enivronments using the lab provided environment, I created my own instance under my Azure account. 
+
+I did delete the cluster and uploaded an image to my repo.
