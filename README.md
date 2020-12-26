@@ -42,18 +42,48 @@ In my project example, the early termination policy is applied at every interval
 
 The AutoML example completed approximately 35 child runs using various models and hyperarameters.  
 
+As I mentioned above, the best performing model was the Voting Ensemble model with an accuracy of 91.684%.  
+
+Other relevant output parameters generated from this Voting Ensemble run are AUC Macro (94.5%) and F1 Macro (76.8%).  
+
+The AUC is good, but the F1 was lower and in looking at the confusion matrix I was able to dig deeper.  
+
+In the confusion matrtix, Predicting 0 (didn't open an account) against true 0 was quite good at 96.6% correct vs 3.4% incorrect.  
+
+The model was not as good at predicting 1 (would open an account) against true 1.  In this case it corrrectly predicted 52.5% vs incorrectly predicting 47.5%
+
+Its not surprising that the Voting Ensemble model was the best performing.  This model combines the prediction from multiple other models.  
+
+It is a technique that is often used to improve model performance, ideally achieivng better results than any single model in the ensemble.  
+
 In addition to the best performing model I mentioned above, other ML models tested included:
 * MaxAbsScaler & XGBoostClassifier (91.5% accuracy - 2nd best performing model), 
 * SparseNormalizer & XGBoostClassifier (91.4% accuracy), 
 * StandardScalerWrapper & RandomForest (89% accuracy). 
 
+In the three examples above, the architecture includes a processing component to scal or normalize the data to help the algorighm perform well and prevent over / underfitting data.
+
+One the data has been normalized, then an XGBoostClassifier (type of Gradient Boosting that combines decision trees) and RandomForest (a collection of decision trees with a single result) were the next best performing models.
+
+
 ## Pipeline comparison
 
-At a practical level, the AutoML model and the logistic regression model perform essentialy the same.  
+At a practical level, the accuracy of the AutoML Voting Ensemble model and the logistic regression model perform essentialy the same.  
 
 However several observations - the AutoML models include a wide spectrum of different model types that I was not aware of and would not typically include in test runs.  
 
+The voting ensemble model also takes into account the performance of various models applied to my specific data set and selects the optimal set based on performance. 
+
+Given that certain models perform better under different circumstances, this in the long run should improve model outcomes and reduce time to develop optimal models.
+
+For example, gradient boosting algorithms can result in better performance than random forests.  However, gradient boosting may not be a good choice with lots of noise in data.
+
+The power of AutoML and the Voting Ensemble is that it combines multiple models to improve overall predictions.  
+
 Also, while it may be unique to my configuration when inspectng the individual child runs under experiments, they are generally fast, most completing in less than 1 minute.  
+
+
+
 
 ## Future work
 
