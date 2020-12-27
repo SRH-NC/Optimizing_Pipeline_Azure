@@ -42,28 +42,59 @@ In my project example, the early termination policy is applied at every interval
 
 The AutoML example completed approximately 35 child runs using various models and hyperarameters.  
 
-As I mentioned above, the best performing model was the Voting Ensemble model with an accuracy of 91.684%.  
+The best performing model was the Voting Ensemble model with an accuracy of 91.684%.   
 
-Other relevant output parameters generated from this Voting Ensemble run are AUC Macro (94.5%) and F1 Macro (76.8%).  
+Voting Ensemble takes a majority vote of several algorithms. This make it extremely robust and helps reduce the bias associated with individual algorithms. 
+
+So it is not surprising that the Voting Ensemble model was the best performing as it combines the best predictions from multiple other models. 
+
+It is a technique that is often used to improve model performance, ideally achieivng better results than any single model in the ensemble.  
+
+Parameters from the Pipeline used in the Voting Ensemble model are (note these values are taken from the 'prefittedsoftvotingclassifier':  
+ reg_lambda=0.5208333333333334,
+ scale_pos_weight=1,
+ subsample=0.6,
+ silent=None,
+ tree_method='auto',
+ verbose=-10
+
+In addition, here are parmeters from a XGBoostClassifier child run:
+ colsample_bylevel=1, 
+ colsample_bynode=1,
+ colsample_bytree=1,g
+ amma=0,
+ learning_rate=0.1,
+ ax_delta_step=0,  
+ max_depth=3, 
+ min_child_weight=1, 
+ missing=nan,
+ n_estimators=100, 
+ n_jobs=1, 
+ nthread=None,
+ objective='binary:logistic', 
+ random_state=0,
+ reg_alpha=0, 
+ reg_lambda=1,
+ scale_pos_weight=1, 
+ verbose=-10,
+ verbosity=0
+
+Relevant output parameters generated from this Voting Ensemble run are AUC Macro (94.5%) and F1 Macro (76.8%).  
 
 The AUC is good, but the F1 was lower and in looking at the confusion matrix I was able to dig deeper.  
 
-In the confusion matrtix, Predicting 0 (didn't open an account) against true 0 was quite good at 96.6% correct vs 3.4% incorrect.  
+In the confusion matrtix, Predicting 0 (customer didn't open an account) against true 0 was quite good at 96.6% correct vs 3.4% incorrect.  
 
-The model was not as good at predicting 1 (would open an account) against true 1.  In this case it corrrectly predicted 52.5% vs incorrectly predicting 47.5%
-
-Its not surprising that the Voting Ensemble model was the best performing.  This model combines the prediction from multiple other models.  
-
-It is a technique that is often used to improve model performance, ideally achieivng better results than any single model in the ensemble.  
+The model was not as good at predicting 1 (customer did open an account) against true 1.  In this case it corrrectly predicted 52.5% vs incorrectly predicting 47.5%.
 
 In addition to the best performing model I mentioned above, other ML models tested included:
 * MaxAbsScaler & XGBoostClassifier (91.5% accuracy - 2nd best performing model), 
 * SparseNormalizer & XGBoostClassifier (91.4% accuracy), 
 * StandardScalerWrapper & RandomForest (89% accuracy). 
 
-In the three examples above, the architecture includes a processing component to scal or normalize the data to help the algorighm perform well and prevent over / underfitting data.
+In the three examples above, the architecture includes a processing component to scale or normalize the data to help the algorighm perform well and prevent over / underfitting data.
 
-One the data has been normalized, then an XGBoostClassifier (type of Gradient Boosting that combines decision trees) and RandomForest (a collection of decision trees with a single result) were the next best performing models.
+Once the data has been normalized, then an XGBoostClassifier (type of Gradient Boosting that combines decision trees) and RandomForest (a collection of decision trees with a single result) were the next best performing models.
 
 
 ## Pipeline comparison
@@ -83,13 +114,18 @@ The power of AutoML and the Voting Ensemble is that it combines multiple models 
 Also, while it may be unique to my configuration when inspectng the individual child runs under experiments, they are generally fast, most completing in less than 1 minute.  
 
 
-
-
 ## Future work
 
 For this first exercise, I used a basic logistic regression model.  
 
 Future models can be improved adding / tuning hyperparameters. For example expand the space of the discrete hyperparemeters in hyperdrive config and leverage different sampeling methods (eg Grid).  
+
+The dataset is imbalanced, so using the accuracy may not be the ideal metric in this instance.  Other metrics that could be implemented are:
+* AUC
+* Precision
+* Recall
+
+Another approach would be to balance the classes to obtain approximately the same number of instances for both classes.  Techniques such as Random Under-sampeling, Random Over-sampeling, or Cluster-based Over-sampeling could be incorporated.
 
 
 ## Proof of cluster clean up
