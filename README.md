@@ -127,6 +127,13 @@ The dataset is imbalanced, so using the accuracy may not be the ideal metric in 
 
 Another approach would be to balance the classes to obtain approximately the same number of instances for both classes.  Techniques such as Random Under-sampeling, Random Over-sampeling, or Cluster-based Over-sampeling could be incorporated.
 
+There are a number of checks and actions, several identified above, that hint at methods to improve model performance and achieve a more general predictor that’s able to work equally well with test set or new data. 
+
+The reason these technicques can improve model performance can vary, but here are two examples that help explain the 'why':
+
+1) By averaging the models together in an ensemble the principle is quite simple: Estimate variance is random, so by averaging many different models, you can enhance the signal and rule out the noise that will often cancel itself.
+
+2) Sometimes the results from an algorithm that performs well, mixed with the results from a simpler algorithm that doesn’t work as well, can create better predictions than using a single algorithm. For example, don’t underestimate contributions delivered from simpler models, such as linear models, when averaging their results with the output from more sophisticated algorithms, such as gradient boosting.
 
 ## Proof of cluster clean up
 
