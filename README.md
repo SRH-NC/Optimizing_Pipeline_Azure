@@ -129,7 +129,7 @@ Another approach would be to balance the classes to obtain approximately the sam
 
 There are a number of checks and actions, several identified above, that hint at methods to improve model performance and achieve a more general predictor that’s able to work equally well with test set or new data. 
 
-The reason these technicques can improve model performance can vary, but here are two examples that help explain the 'why':
+The reason these techniques can improve model performance can vary, but here are two examples that help explain the 'why':
 
 1) By averaging the models together in an ensemble the principle is quite simple: Estimate variance is random, so by averaging many different models, you can enhance the signal and rule out the noise that will often cancel itself.
 
